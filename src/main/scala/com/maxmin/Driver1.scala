@@ -11,10 +11,12 @@ object Driver1 {
 
     val result = data.map(line => line.split(" "))
       .filter(arr => arr(1).equals("M"))
-      .sortBy(arr => -arr(2).toInt).take(1)
-      .map(arr => (arr(0), arr(1), arr(2)))
-
-    result.foreach(arr => println(arr._1 + " " + arr._2 + " " + arr._3))
+      .sortBy(arr => -arr(2).toInt)
+      .take(1)
+//      .map(arr => (arr(0), arr(1), arr(2)))
+        .map(arr => arr.mkString(" "))
+//    result.foreach(arr => println(arr._1 + " " + arr._2 + " " + arr._3))
+      result.foreach(println)
   }
 
 }
