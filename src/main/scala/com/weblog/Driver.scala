@@ -16,7 +16,21 @@ object Driver {
     val stream = KafkaUtils.createStream(ssc, zkHosts, group, topics)
       .map(_._2)
 
-    stream.print()
+    //(url,urlname,uvid,ssid,sscount,sstime,cip)
+    val d1 = stream.map{line =>
+      val info = line.split("\\|")
+      val url = info(0)
+      val urlName = info(1)
+      val uvid = info(13)
+      val ssid = info(14).split("_")(0)
+      val sscount = info(14).split("_")(1)
+      val sstime = info(14).split("_")(2)
+      val cip = info(15)
+      (url, urlName, uvid, ssid, sscount, sstime, cip)
+    }
+    d1.print()
+
+//    stream.print()
     ssc.start()
     ssc.awaitTermination()
   }
